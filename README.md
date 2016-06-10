@@ -7,6 +7,7 @@
 - nRF51-DK
 - Serial terminal program, e.g., Teraterm
 - arm-none-eabi-gcc 4.9.3
+- [nRFgo studio](https://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRFgo-Studio)
 
 
 # 1. Download repository and unzip
@@ -30,11 +31,72 @@ $ make flash nrf51422_xxac_s110
 # 5. Check test code result from Teraterm
 
 # 6. Result
-
+![image](docs/images/Test_Result.PNG)
 
 ###UART confg
+..../nRF51_Unit_Testing-master/main.c
+```C
+/**@brief  Function for initializing the UART module.
+ */
+/**@snippet [UART Initialization] */
+static void uart_init(void)
+{
+    uint32_t                     err_code;
+    const app_uart_comm_params_t comm_params =
+    {
+        RX_PIN_NUMBER,
+        TX_PIN_NUMBER,
+        RTS_PIN_NUMBER,
+        CTS_PIN_NUMBER,
+        APP_UART_FLOW_CONTROL_ENABLED,
+        false,
+        UART_BAUDRATE_BAUDRATE_Baud38400
+    };
+
+    APP_UART_FIFO_INIT( &comm_params,
+                       UART_RX_BUF_SIZE,
+                       UART_TX_BUF_SIZE,
+                       uart_event_handle,
+                       APP_IRQ_PRIORITY_LOW,
+                       err_code);
+    APP_ERROR_CHECK(err_code);
+}
+/**@snippet [UART Initialization] */
+```
 
 ###Terminal text color config
+..../nRF51_Unit_Testing-master/components/Unity-master/src/unity.c
+```C
+void UnityPrint(const char* string)
+{
+    const char* pch = string;
+	
+	if(0 == memcmp(pch, UnityStrFail, sizeof(UnityStrFail)) ||
+	   0 == memcmp(pch, UnityStrResultsFailures, sizeof(UnityStrResultsFailures))) printf("\33[31m");
+	else if(0 == memcmp(pch, UnityStrOk, sizeof(UnityStrOk)) ||
+			  0 == memcmp(pch, UnityStrPass, sizeof(UnityStrPass))) printf("\33[32m");
+	else if(0 == memcmp(pch, UnityStrIgnore, sizeof(UnityStrIgnore)) ||
+			  0 == memcmp(pch, UnityStrResultsIgnored, sizeof(UnityStrResultsIgnored))) printf("\33[33m");
+
+....
+}
+```
 
 ###Test result attribute
+..../nRF51_Unit_Testing-master/components/Unity-master/extras/fixture/src/unity_fixture.c
+```C
+int UnityGetCommandLineOptions(int argc, const char* argv[])
+{
+    int i;
+    UnityFixture.Verbose = 0;
+    UnityFixture.GroupFilter = 0;
+    UnityFixture.NameFilter = 0;
+    UnityFixture.RepeatCount = 1;
+    
+//	if (argc == 1)
+    UnityFixture.Verbose = 1;
+	  return 0;
 
+....
+}
+```
