@@ -5,8 +5,8 @@
 
 # Need
 - nRF51-DK
-- Serial terminal program, e.g., Teraterm
-- arm-none-eabi-gcc 4.9.3
+- Serial terminal program, e.g., [Teraterm](http://download.cnet.com/Tera-Term/3000-20432_4-75766675.html)
+- [GNU Tools ARM Embedded 4.9.3](https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update)
 - [nRFgo studio](https://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRFgo-Studio)
 
 
