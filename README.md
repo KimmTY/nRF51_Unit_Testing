@@ -23,7 +23,7 @@
 
 # 4. Run CMD and Type Commands
 ```
-$ cd nRF51_Unit_Testing-master
+$ cd nRF51_Unit_Testing
 $ make all
 $ make flash_softdevice
 $ make flash nrf51422_xxac_s110
