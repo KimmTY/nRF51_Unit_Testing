@@ -37,7 +37,7 @@ $ make flash nrf51422_xxac_s110
 ![image](docs/images/Test_Result.PNG)
 
 ###UART confg
-..../nRF51_Unit_Testing-master/main.c
+..../nRF51_Unit_Testing/main.c
 ```C
 /**@brief  Function for initializing the UART module.
  */
@@ -62,7 +62,7 @@ static void uart_init(void)
 ```
 
 ###Terminal text color config
-..../nRF51_Unit_Testing-master/components/Unity-master/src/unity.c
+..../nRF51_Unit_Testing/components/Unity-master/src/unity.c
 ```C
 void UnityPrint(const char* string)
 {
@@ -83,7 +83,7 @@ void UnityPrint(const char* string)
 ```
 
 ###Test result attribute
-..../nRF51_Unit_Testing-master/components/Unity-master/extras/fixture/src/unity_fixture.c
+..../nRF51_Unit_Testing/components/Unity-master/extras/fixture/src/unity_fixture.c
 ```C
 int UnityGetCommandLineOptions(int argc, const char* argv[])
 {
@@ -98,3 +98,14 @@ int UnityGetCommandLineOptions(int argc, const char* argv[])
 ....
 }
 ```
+
+###Add Unity framework and test code to makefile
+..../nRF51_Unit_Testing/Makefile
+
+![image](docs/images/Add_test_source.PNG)
+- Line 63-64 : Add Unity framework source
+- Line 65-67 : Add test code source
+
+![image](docs/images/Add_test_dir.PNG)
+- Line 97-98 : Add Unity framwork directory
+- Line 99 : Add test code directory
