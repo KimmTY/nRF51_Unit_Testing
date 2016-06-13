@@ -500,7 +500,7 @@ static void RunAllTests(void)
 
 /**@brief Application main function.
  */
-int main(int argc, const char * argv[])
+int main(void)
 {	
     uint32_t err_code;
     bool erase_bonds;
@@ -518,7 +518,7 @@ int main(int argc, const char * argv[])
     
     printf("%s",start_string);
 	
-    UnityMain(argc, argv, RunAllTests);
+    UnityMain(0, NULL, RunAllTests);
 
     err_code = ble_advertising_start(BLE_ADV_MODE_FAST);
     APP_ERROR_CHECK(err_code);
