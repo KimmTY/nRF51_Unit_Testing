@@ -7,7 +7,10 @@
 - nRF51-DK
 - Serial terminal program, e.g., [Teraterm](http://download.cnet.com/Tera-Term/3000-20432_4-75766675.html)
 - [GNU Tools ARM Embedded 4.9.3](https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update)
+- [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm) - Complete package, except sources
+- [CoreUtils for Windows](http://gnuwin32.sourceforge.net/packages/coreutils.htm) - Complete package, except sources
 - [nRFgo studio](https://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRFgo-Studio)
+- **reference this [link](https://devzone.nordicsemi.com/tutorials/7/) "Before we begin" section.
 
 
 # 1. Download repository and unzip
@@ -52,14 +55,8 @@ static void uart_init(void)
         false,
         UART_BAUDRATE_BAUDRATE_Baud38400
     };
-
-    APP_UART_FIFO_INIT( &comm_params,
-                       UART_RX_BUF_SIZE,
-                       UART_TX_BUF_SIZE,
-                       uart_event_handle,
-                       APP_IRQ_PRIORITY_LOW,
-                       err_code);
-    APP_ERROR_CHECK(err_code);
+    
+    ....
 }
 /**@snippet [UART Initialization] */
 ```
@@ -70,7 +67,10 @@ static void uart_init(void)
 void UnityPrint(const char* string)
 {
     const char* pch = string;
-	
+    
+	//Black : \33[30m, Red : \33[31m, Green : \33[32m, Yellow : \33[33m,
+	//Blue : \33[34m, Magenta : \33[35m, Cyan : \33[36m, Whith : \33[37m
+	//https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 	if(0 == memcmp(pch, UnityStrFail, sizeof(UnityStrFail)) ||
 	   0 == memcmp(pch, UnityStrResultsFailures, sizeof(UnityStrResultsFailures))) printf("\33[31m");
 	else if(0 == memcmp(pch, UnityStrOk, sizeof(UnityStrOk)) ||
@@ -88,14 +88,12 @@ void UnityPrint(const char* string)
 int UnityGetCommandLineOptions(int argc, const char* argv[])
 {
     int i;
-    UnityFixture.Verbose = 0;
+    UnityFixture.Verbose = 1; //0 : print only FAIL, IGNORE test result, 1 : print all test result
     UnityFixture.GroupFilter = 0;
     UnityFixture.NameFilter = 0;
     UnityFixture.RepeatCount = 1;
     
-//	if (argc == 1)
-    UnityFixture.Verbose = 1;
-	  return 0;
+    return 0;
 
 ....
 }
